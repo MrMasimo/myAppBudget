@@ -2,8 +2,8 @@
   <div class="budget-list-wrap">
     <ElCard :header='header'>
       <template v-if="!isEmpty">
-        <div v-for="(item,prop) in list" :key="prop">
-          <BudgetListTemp @deleteItemFromList='deleteItem' :item='item'/>
+        <div v-for="(item,prop) in budget" :key="prop">
+          <BudgetListTemp :item='item'/>
         </div>
       </template>
       <ElAlert v-else :title="title" type='info' :closable='false'></ElAlert>
@@ -13,36 +13,21 @@
 
 <script>
 import BudgetListTemp from '@/components/BudgetListTemp'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'BudgetList',
   components: { BudgetListTemp},
-  props:{
-    list: {
-      type: Object,
-      default: () => ({})
-    }
-  },
   data:() => ({
     header: "Budget List",
     title: "Empty",
   }),
   computed:{
+    ...mapGetters('budgetData', ['budget']),
     isEmpty(){
-      return !Object.keys(this.list).length;
-    },
-    classImage(){
-      console.log(this.list);
-      if (this.list === "INCOME")
-        return "el-icon-top";
-      else return "el-icon-bottom";
+      return !Object.keys(this.budget).length;
     },
   },
-  methods:{
-    deleteItem(id) {
-      this.$emit('deleteItem', id);
-    }
-  }
 };
 </script>
 

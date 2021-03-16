@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 name: 'BudgetListTemp',
 data:()=>({
@@ -46,8 +48,9 @@ computed:{
   }
 },
 methods:{
+  ...mapActions('budgetData', ['onDeleteItem']),
   deleteItemFromList(id){
-    this.$emit('deleteItemFromList', id);
+    this.onDeleteItem(id);
   },
 }
 }

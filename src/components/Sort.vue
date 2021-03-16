@@ -7,11 +7,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Sort',
   methods: {
+    ...mapActions('budgetData', ['onSort']),
     sort(view){
-      this.$emit('sort', view);
+      this.onSort(view);
     }
     }
 }

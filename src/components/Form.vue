@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: "Form",
   data() {
@@ -45,12 +47,13 @@ export default {
       },
   }},
   methods: {
+    ...mapActions('budgetData', ['onAddItem'] ),
     addItem(){
       this.$refs.addForm.validate((valid) => {
         if (valid) {
           if (this.formData.type === "OUTCOME")
           this.formData.value *= -1;
-          this.$emit('addItem', {...this.formData});
+          this.onAddItem({...this.formData});
           this.$refs.addForm.resetFields();
         }
       });

@@ -1,22 +1,19 @@
 <template>
   <div class="total-value">
-   <span :style="changeColorTotal"> Balance: {{ total }}</span>
+   <span :style="changeColorTotal"> Balance: {{ totalBalance }}</span>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "TotalBalance",
-  props: {
-    total: {
-      type: Number,
-      default : 0
-    }
-  },
   computed:{
+    ...mapGetters('budgetData',['totalBalance']),
     changeColorTotal(){
       let color = "";
-      const total = this.total;
+      const total = this.totalBalance;
 
       if (!total)
         color = "black";
